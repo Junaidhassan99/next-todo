@@ -14,7 +14,7 @@ export default function TodoItem(props: {
   return (
     <div>
       <div className="py-2 px-5 flex flex-row justify-between items-center">
-        <div onClick={() => props.togglecompleteTodoItem(props.data.id)}>
+        <div onClick={() => props.togglecompleteTodoItem(props.data._id)}>
           {props.data.complete ? (
             <FontAwesomeIcon
               icon={faCheckCircle}
@@ -34,7 +34,7 @@ export default function TodoItem(props: {
         <div className="mx-1" />
         <div className="grow">{props.data.task}</div>
         <div className="mx-1" />
-        <div onClick={() => props.deleteTodoItem(props.data.id)}>
+        <div onClick={() => props.deleteTodoItem(props.data._id)}>
           <FontAwesomeIcon icon={faTrash} size="lg" />
         </div>
         {/* <div>X</div> */}

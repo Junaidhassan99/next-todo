@@ -3,7 +3,7 @@ import ProfileImg from "@/components/profile-img";
 import TextField from "@/components/text-field";
 import TodoItem from "@/components/todo-item";
 import Image from "next/image";
-import { Fragment, useRef, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import { TodoDataItem } from "@/data-types/data-types";
 import { todo } from "node:test";
 import RootLayout from "./layout";
@@ -11,7 +11,7 @@ import RootLayout from "./layout";
 export default function Home() {
   let [todoData, setTodoData] = useState([
     {
-      id: "i-1",
+      _id: "i-1",
       task: "Tasking 1",
       complete: false,
       completeTime: undefined,
@@ -20,30 +20,45 @@ export default function Home() {
   ] as TodoDataItem[]);
 
   function addTodoItem(newData: TodoDataItem) {
+    console.log(newData);
     setTodoData([...todoData, newData]);
   }
 
-  function deleteTodoItem(id: string) {
-    const newTodoData = todoData.filter((data) => data.id !== id);
+  function deleteTodoItem(_id: string) {
+    const newTodoData = todoData.filter((data) => data._id !== _id);
 
     setTodoData(newTodoData);
   }
 
-  function togglecompleteTodoItem(id: string) {
+  function togglecompleteTodoItem(_id: string) {
     const newTodoData = todoData.map((data) => {
-      if (data.id === id) {
+      if (data._id === _id) {
         data.complete = !data.complete;
         if (data.complete) {
           data.completeTime = Date.now();
         } else {
           data.completeTime = undefined;
         }
+
+        fetch(`/api/todo`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        });
       }
       return data;
     });
 
     setTodoData(newTodoData);
   }
+
+  useEffect(() => {
+    fetch("/api/todo").then(async (res) => {
+      setTodoData(await res.json());
+    });
+  }, []);
 
   return (
     <RootLayout>
@@ -63,7 +78,7 @@ export default function Home() {
                 .map((data: TodoDataItem) => {
                   return (
                     <TodoItem
-                      key={data.id}
+                      key={data._id}
                       data={data}
                       deleteTodoItem={deleteTodoItem}
                       togglecompleteTodoItem={togglecompleteTodoItem}

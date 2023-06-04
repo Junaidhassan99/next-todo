@@ -1,25 +1,40 @@
+import { TodoDataItem } from "@/data-types/data-types";
 import { faBars, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 
-export default function ProfileImg(props: { addTodoItem: Function }) {
+export default function TextField(props: { addTodoItem: Function }) {
   const [inputText, setInputText] = useState("");
   const [error, setError] = useState(false);
 
-  function mAddTodoItem() {
+  async function mAddTodoItem() {
     if (inputText === "") {
       setError(true);
       return;
     } else {
       setError(false);
 
-      props.addTodoItem({
-        id: "id" + Date.now().toString(),
+      const newData: TodoDataItem = {
+        _id: undefined,
         task: inputText,
         complete: false,
-        completeTime: undefined,
+        completeTime: 0,
         creationTime: Date.now(),
+      };
+
+      props.addTodoItem({ ...newData, _id: Date.now().toString() });
+
+      //save message to db
+      fetch("/api/todo", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newData),
       });
+
+      //Id of saved message
+      // const todoSavedId = await responsePost.json();
 
       setInputText("");
     }
@@ -51,7 +66,9 @@ export default function ProfileImg(props: { addTodoItem: Function }) {
             <FontAwesomeIcon icon={faPlus} size="lg" />
           </div>
         </div>
-        {error && <div className="px-6 text-red-500 text-sm">Cannot be empty</div>}
+        {error && (
+          <div className="px-6 text-red-500 text-sm">Cannot be empty</div>
+        )}
       </div>
     </div>
   );
