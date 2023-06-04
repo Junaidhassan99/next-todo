@@ -9,3 +9,7 @@
 .transp-background-only-50 {
   background-color: rgba(255, 255, 255, 0.5);
 }
+
+.transp-background-only-0 {
+  background-color: rgba(255, 255, 255, 0.0);
+}
