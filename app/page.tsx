@@ -32,14 +32,21 @@ export default function Home() {
 
   return (
     <div className="bg-cover bg-[url('/images/san-bridge.jpg')] h-screen overflow-y-auto">
-      <div className="flex flex-col h-full items-center justify-center">
+      <div className="flex flex-col h-full items-center">
+        <div className="my-5" />
         <ProfileImg />
-        <div className="my-9" />
+        <div className="my-5" />
         <TextField />
-        <div className="my-9" />
-        {...dummyData.map((data: TodoDataItem) => {
-          return <TodoItem key={data.id} data={data} />;
-        })}
+        <div className="my-3" />
+        <div className="py-2 rounded-md bg-white w-1/4 transp-background-only-80 shadow-md">
+          {...dummyData
+            .sort(function (a, b) {
+              return a.creationTime - b.creationTime;
+            })
+            .map((data: TodoDataItem) => {
+              return <TodoItem key={data.id} data={data} />;
+            })}
+        </div>
       </div>
     </div>
   );
