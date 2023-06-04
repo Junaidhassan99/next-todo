@@ -56,6 +56,16 @@ export default async function handler(req: any, res: any) {
 
       return res.status(200).json(responseUpdateTodo);
     }
+    case "DELETE": {
+      const dataId = req.query.id as string;
+      console.log(dataId);
+
+      const responseDelete: any = await TodoModel.deleteOne({
+        _id: dataId,
+      });
+
+      return res.status(200).json(dataId);
+    }
     default: {
       res.status(404).json("Req Not Found");
       break;

@@ -28,6 +28,12 @@ export default function Home() {
     const newTodoData = todoData.filter((data) => data._id !== _id);
 
     setTodoData(newTodoData);
+
+    console.log(_id);
+
+    fetch(`/api/todo?id=${_id}`, {
+      method: "DELETE",
+    });
   }
 
   function togglecompleteTodoItem(_id: string) {
