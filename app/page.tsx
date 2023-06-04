@@ -23,6 +23,28 @@ export default function Home() {
     setTodoData([...todoData, newData]);
   }
 
+  function deleteTodoItem(id: string) {
+    const newTodoData = todoData.filter((data) => data.id !== id);
+
+    setTodoData(newTodoData);
+  }
+
+  function togglecompleteTodoItem(id: string) {
+    const newTodoData = todoData.map((data) => {
+      if (data.id === id) {
+        data.complete = !data.complete;
+        if (data.complete) {
+          data.completeTime = Date.now();
+        } else {
+          data.completeTime = undefined;
+        }
+      }
+      return data;
+    });
+
+    setTodoData(newTodoData);
+  }
+
   return (
     <RootLayout>
       <div className="bg-cover bg-[url('/images/san-bridge.jpg')] h-screen overflow-y-auto">
@@ -39,7 +61,14 @@ export default function Home() {
                   return a.creationTime - b.creationTime;
                 })
                 .map((data: TodoDataItem) => {
-                  return <TodoItem key={data.id} data={data} />;
+                  return (
+                    <TodoItem
+                      key={data.id}
+                      data={data}
+                      deleteTodoItem={deleteTodoItem}
+                      togglecompleteTodoItem={togglecompleteTodoItem}
+                    />
+                  );
                 })}
             </div>
           )}

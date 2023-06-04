@@ -1,7 +1,7 @@
 import { faBars, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-export default function ProfileImg(props: any) {
+export default function ProfileImg(props: { addTodoItem: Function }) {
   let inputText = "";
   return (
     <div className="flex flex-row w-full justify-center">
