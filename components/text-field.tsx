@@ -1,12 +1,13 @@
-import { AddIcon, DrawerIcon } from "@/icons/icons";
+import { faBars, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function ProfileImg(props: any) {
   let inputText = "";
   return (
     <div className="flex flex-row w-full justify-center">
-      <div className="py-3 px-5 w-1/4 rounded-md transp-background-only-50 shadow-md flex flex-row">
-        <DrawerIcon />
-        {/* <div>X</div> */}
+      <div className="py-3 px-5 w-1/4 rounded-md transp-background-only-50 shadow-md flex flex-row items-center">
+        <FontAwesomeIcon icon={faBars} size="lg" />
+
         <div className="mx-1" />
         <input
           className="focus:outline-none grow transp-background-only-0"
@@ -26,8 +27,7 @@ export default function ProfileImg(props: any) {
             })
           }
         >
-          <AddIcon />
-          {/* <div>X</div> */}
+          <FontAwesomeIcon icon={faPlus} size="lg" />
         </div>
       </div>
     </div>

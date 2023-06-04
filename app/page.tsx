@@ -9,30 +9,15 @@ import { todo } from "node:test";
 import RootLayout from "./layout";
 
 export default function Home() {
-  let [todoData, setTodoData] = useState([] as TodoDataItem[]);
-  // let dummyData = [
-  //   {
-  //     id: "i-1",
-  //     task: "Tasking 1",
-  //     complete: false,
-  //     completeTime: undefined,
-  //     creationTime: Date.now() + 1,
-  //   },
-  //   {
-  //     id: "i-2",
-  //     task: "Tasking 2",
-  //     complete: false,
-  //     completeTime: undefined,
-  //     creationTime: Date.now() + 2,
-  //   },
-  //   {
-  //     id: "i-3",
-  //     task: "Tasking 3",
-  //     complete: false,
-  //     completeTime: undefined,
-  //     creationTime: Date.now() + 3,
-  //   },
-  // ] as TodoDataItem[];
+  let [todoData, setTodoData] = useState([
+    {
+      id: "i-1",
+      task: "Tasking 1",
+      complete: false,
+      completeTime: undefined,
+      creationTime: Date.now() + 1,
+    },
+  ] as TodoDataItem[]);
 
   function addTodoItem(newData: TodoDataItem) {
     setTodoData([...todoData, newData]);
