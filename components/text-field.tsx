@@ -22,19 +22,7 @@ export default function TextField(props: { addTodoItem: Function }) {
         creationTime: Date.now(),
       };
 
-      props.addTodoItem({ ...newData, _id: Date.now().toString() });
-
-      //save message to db
-      fetch("/api/todo", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newData),
-      });
-
-      //Id of saved message
-      // const todoSavedId = await responsePost.json();
+      props.addTodoItem(newData);
 
       setInputText("");
     }

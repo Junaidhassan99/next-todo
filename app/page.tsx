@@ -19,9 +19,29 @@ export default function Home() {
     },
   ] as TodoDataItem[]);
 
-  function addTodoItem(newData: TodoDataItem) {
-    console.log(newData);
-    setTodoData([...todoData, newData]);
+  async function addTodoItem(newData: TodoDataItem) {
+    const tempId = Date.now().toString();
+    setTodoData([...todoData, { ...newData, _id: tempId }]);
+
+    //save message to db
+    const responsePost = await fetch("/api/todo", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newData),
+    });
+
+    //Id of saved message
+    const todoSavedId = await responsePost.json();
+
+    const updatedIdList = todoData.map((item) => {
+      if (item._id === tempId) {
+        item._id = todoSavedId;
+        return item;
+      }
+      return item;
+    });
   }
 
   function deleteTodoItem(_id: string) {
