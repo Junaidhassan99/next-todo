@@ -11,9 +11,11 @@ export default function TextField(props: { addTodoItem: Function }) {
 
   async function mAddTodoItem() {
     setIsLoadingAdd(true);
+    setError(false);
 
     if (inputText === "") {
-      setError(false);
+      setIsLoadingAdd(false);
+      setError(true);
       return;
     } else {
       setError(false);
