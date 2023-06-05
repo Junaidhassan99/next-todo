@@ -1,5 +1,3 @@
-import Image from "next/image";
-
 export default function LoadingIndicator() {
   return (
     <div className="width-5 height-5">

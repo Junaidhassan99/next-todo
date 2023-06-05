@@ -2,10 +2,8 @@
 import ProfileImg from "@/components/profile-img";
 import TextField from "@/components/text-field";
 import TodoItem from "@/components/todo-item";
-import Image from "next/image";
-import { Fragment, useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { TodoDataItem } from "@/data-types/data-types";
-import { todo } from "node:test";
 import RootLayout from "./layout";
 import LoadingIndicator from "@/components/loading-indicator";
 
