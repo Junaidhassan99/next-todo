@@ -13,7 +13,7 @@ export default function TextField(props: { addTodoItem: Function }) {
     setIsLoadingAdd(true);
 
     if (inputText === "") {
-      setError(true);
+      setError(false);
       return;
     } else {
       setError(false);
