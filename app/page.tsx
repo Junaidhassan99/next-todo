@@ -9,7 +9,7 @@ import { todo } from "node:test";
 import RootLayout from "./layout";
 
 export default function Home() {
-  let [todoData, setTodoData] = useState([
+  const [todoData, setTodoData] = useState([
     {
       _id: "i-1",
       task: "Tasking 1",
@@ -21,7 +21,6 @@ export default function Home() {
 
   async function addTodoItem(newData: TodoDataItem) {
     const tempId = Date.now().toString();
-    setTodoData([...todoData, { ...newData, _id: tempId }]);
 
     //save message to db
     const responsePost = await fetch("/api/todo", {
@@ -34,14 +33,7 @@ export default function Home() {
 
     //Id of saved message
     const todoSavedId = await responsePost.json();
-
-    const updatedIdList = todoData.map((item) => {
-      if (item._id === tempId) {
-        item._id = todoSavedId;
-        return item;
-      }
-      return item;
-    });
+    setTodoData([...todoData, { ...newData, _id: todoSavedId }]);
   }
 
   function deleteTodoItem(_id: string) {

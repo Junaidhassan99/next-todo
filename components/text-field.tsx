@@ -6,8 +6,11 @@ import { useState } from "react";
 export default function TextField(props: { addTodoItem: Function }) {
   const [inputText, setInputText] = useState("");
   const [error, setError] = useState(false);
+  const [isLoadingAdd, setIsLoadingAdd] = useState(false);
 
   async function mAddTodoItem() {
+    setIsLoadingAdd(true);
+
     if (inputText === "") {
       setError(true);
       return;
@@ -22,10 +25,12 @@ export default function TextField(props: { addTodoItem: Function }) {
         creationTime: Date.now(),
       };
 
-      props.addTodoItem(newData);
+      await props.addTodoItem(newData);
 
       setInputText("");
     }
+
+    setIsLoadingAdd(false);
   }
 
   return (
@@ -50,9 +55,18 @@ export default function TextField(props: { addTodoItem: Function }) {
           />
 
           <div className="mx-1" />
-          <div onClick={mAddTodoItem}>
-            <FontAwesomeIcon icon={faPlus} size="lg" />
-          </div>
+          {isLoadingAdd ? (
+            <div className="width-5 height-5">
+              <svg
+                className="animate-spin h-5 w-5 mr-3 bg-orange-400"
+                viewBox="0 0 24 24"
+              ></svg>
+            </div>
+          ) : (
+            <div onClick={mAddTodoItem}>
+              <FontAwesomeIcon icon={faPlus} size="lg" />
+            </div>
+          )}
         </div>
         {error && (
           <div className="px-6 text-red-500 text-sm">Cannot be empty</div>
