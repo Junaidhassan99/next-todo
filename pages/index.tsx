@@ -101,6 +101,7 @@ export default function Home() {
                     .sort(function (a, b) {
                       return a.creationTime - b.creationTime;
                     })
+                    .reverse()
                     .map((data: TodoDataItem) => {
                       return (
                         <TodoItem
