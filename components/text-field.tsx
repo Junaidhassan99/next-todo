@@ -35,7 +35,7 @@ export default function TextField(props: { addTodoItem: Function }) {
 
   return (
     <div className="flex flex-row w-full justify-center">
-      <div className="flex flex-col py-3 px-5 w-1/4 rounded-md transp-background-only-50 shadow-md ">
+      <div className="flex flex-col py-3 px-5 w-3/4 sm:w-1/2 rounded-md transp-background-only-50 shadow-md ">
         <div className="flex flex-row items-center">
           <FontAwesomeIcon icon={faBars} size="lg" />
 

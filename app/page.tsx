@@ -88,7 +88,7 @@ export default function Home() {
           <TextField addTodoItem={addTodoItem} />
           <div className="my-3" />
           {todoData.length > 0 && (
-            <div className="py-2 rounded-md bg-white w-1/4 transp-background-only-80 shadow-md">
+            <div className="py-2 rounded-md bg-white w-3/4 sm:w-1/2 transp-background-only-80 shadow-md">
               {...todoData
                 .sort(function (a, b) {
                   return a.creationTime - b.creationTime;
@@ -105,6 +105,8 @@ export default function Home() {
                 })}
             </div>
           )}
+          {/* <div className="my-10" /> */}
+          <div className="invisible text-3xl">hello</div>
         </div>
       </div>
     </RootLayout>

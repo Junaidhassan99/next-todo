@@ -31,9 +31,13 @@ export default function TodoItem(props: {
         </div>
 
         {/* <div>X</div> */}
-        <div className="mx-1" />
-        <div className="grow">{props.data.task}</div>
-        <div className="mx-1" />
+        <div className="mx-1 sm:mx-3" />
+        <div
+          className={`grow truncate ${props.data.complete && "line-through"}`}
+        >
+          {props.data.task}
+        </div>
+        <div className="mx-1 sm:mx-3" />
         <div onClick={() => props.deleteTodoItem(props.data._id)}>
           <FontAwesomeIcon icon={faTrash} size="lg" />
         </div>
