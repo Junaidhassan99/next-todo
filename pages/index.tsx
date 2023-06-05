@@ -1,12 +1,12 @@
-"use client";
 import ProfileImg from "@/components/profile-img";
 import TextField from "@/components/text-field";
 import TodoItem from "@/components/todo-item";
 import { useEffect, useState } from "react";
 import { TodoDataItem } from "@/data-types/data-types";
+
 import LoadingIndicator from "@/components/loading-indicator";
 
-export default function HomePageChild() {
+export default function Home() {
   const [todoData, setTodoData] = useState([] as TodoDataItem[]);
   const [isLoadingData, setIsLoadingData] = useState(false);
 
