@@ -7,17 +7,11 @@ import { Fragment, useEffect, useRef, useState } from "react";
 import { TodoDataItem } from "@/data-types/data-types";
 import { todo } from "node:test";
 import RootLayout from "./layout";
+import LoadingIndicator from "@/components/loading-indicator";
 
 export default function Home() {
-  const [todoData, setTodoData] = useState([
-    {
-      _id: "i-1",
-      task: "Tasking 1",
-      complete: false,
-      completeTime: undefined,
-      creationTime: Date.now() + 1,
-    },
-  ] as TodoDataItem[]);
+  const [todoData, setTodoData] = useState([] as TodoDataItem[]);
+  const [isLoadingData, setIsLoadingData] = useState(false);
 
   async function addTodoItem(newData: TodoDataItem) {
     const tempId = Date.now().toString();
@@ -73,8 +67,11 @@ export default function Home() {
   }
 
   useEffect(() => {
+    setIsLoadingData(true);
+
     fetch("/api/todo").then(async (res) => {
       setTodoData(await res.json());
+      setIsLoadingData(false);
     });
   }, []);
 
@@ -87,27 +84,46 @@ export default function Home() {
           <div className="my-5" />
           <TextField addTodoItem={addTodoItem} />
           <div className="my-3" />
-          {todoData.length > 0 && (
-            <div className="py-2 rounded-md bg-white w-3/4 sm:w-1/2 transp-background-only-80 shadow-md">
-              {...todoData
-                .sort(function (a, b) {
-                  return a.creationTime - b.creationTime;
-                })
-                .map((data: TodoDataItem) => {
-                  return (
-                    <TodoItem
-                      key={data._id}
-                      data={data}
-                      deleteTodoItem={deleteTodoItem}
-                      togglecompleteTodoItem={togglecompleteTodoItem}
-                    />
-                  );
-                })}
-            </div>
-          )}
+          <div className="py-2 rounded-md bg-white w-3/4 sm:w-1/2 transp-background-only-80 shadow-md">
+            {(() => {
+              if (isLoadingData) {
+                return (
+                  <div className="flex flex-col h-full items-center py-3">
+                    <LoadingIndicator />
+                  </div>
+                );
+              } else if (todoData.length <= 0) {
+                return (
+                  <div className="flex flex-col h-full items-center py-3">
+                    Todo list empty!
+                  </div>
+                );
+              } else {
+                return (
+                  <div>
+                    {...todoData
+                      .sort(function (a, b) {
+                        return a.creationTime - b.creationTime;
+                      })
+                      .map((data: TodoDataItem) => {
+                        return (
+                          <TodoItem
+                            key={data._id}
+                            data={data}
+                            deleteTodoItem={deleteTodoItem}
+                            togglecompleteTodoItem={togglecompleteTodoItem}
+                          />
+                        );
+                      })}
+                  </div>
+                );
+              }
+            })()}
+          </div>
           {/* <div className="my-10" /> */}
           <div className="invisible text-3xl">hello</div>
         </div>
+        )
       </div>
     </RootLayout>
   );

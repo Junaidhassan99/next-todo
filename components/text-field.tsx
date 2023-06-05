@@ -2,6 +2,7 @@ import { TodoDataItem } from "@/data-types/data-types";
 import { faBars, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
+import LoadingIndicator from "./loading-indicator";
 
 export default function TextField(props: { addTodoItem: Function }) {
   const [inputText, setInputText] = useState("");
@@ -39,7 +40,7 @@ export default function TextField(props: { addTodoItem: Function }) {
         <div className="flex flex-row items-center">
           <FontAwesomeIcon icon={faBars} size="lg" />
 
-          <div className="mx-1" />
+          <div className="mx-1 sm:mx-3" />
           <input
             className="focus:outline-none grow transp-background-only-0"
             value={inputText}
@@ -56,12 +57,7 @@ export default function TextField(props: { addTodoItem: Function }) {
 
           <div className="mx-1" />
           {isLoadingAdd ? (
-            <div className="width-5 height-5">
-              <svg
-                className="animate-spin h-5 w-5 mr-3 bg-orange-400"
-                viewBox="0 0 24 24"
-              ></svg>
-            </div>
+            <LoadingIndicator />
           ) : (
             <div onClick={mAddTodoItem}>
               <FontAwesomeIcon icon={faPlus} size="lg" />
